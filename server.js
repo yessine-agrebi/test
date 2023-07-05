@@ -1,27 +1,34 @@
-const dgram = require('dgram');
+const net = require('net');
 
-const PORT = 1234; // Specify the desired port number
+const PORT = 1234;
 
-// Create a UDP server
-const server = dgram.createSocket('udp4');
+const server = net.createServer(socket => {
+  console.log('A new client connected.');
 
-// Handle incoming UDP packets
-server.on('message', (message, remote) => {
-  const data = message.toString('utf8');
-  console.log(`Received data from ${remote.address}:${remote.port}: ${data}`);
+  // Event handler for receiving data from the client
+  socket.on('data', data => {
+    const receivedData = data.toString('utf8');
+    console.log(`Received data: ${receivedData}`);
 
-  // Add additional logging statements to track the flow
-  console.log('Processing UDP packet...');
+    // Process the received data based on your application requirements
+    // ...
 
-  // Rest of your processing logic
+    // Send a response to the client if needed
+    // socket.write('Response message');
+  });
 
-  console.log('UDP packet processed successfully.');
+  // Event handler for client disconnection
+  socket.on('end', () => {
+    console.log('Client disconnected.');
+  });
 
-  // Rest of your code
+  // Handle any errors that occur
+  socket.on('error', error => {
+    console.error('Socket error:', error);
+  });
 });
 
-
-// Start the server and listen for incoming UDP packets
-server.bind(PORT, () => {
-  console.log(`UDP server is running on port ${PORT}`);
+// Start the server and listen on the specified port
+server.listen(PORT, () => {
+  console.log(`TCP server is running on port ${PORT}`);
 });
