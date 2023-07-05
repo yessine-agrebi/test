@@ -10,20 +10,14 @@ server.on('message', (message, remote) => {
   const data = message.toString('utf8');
   console.log(`Received data from ${remote.address}:${remote.port}: ${data}`);
 
-  // Process the received data based on your application requirements
-  // Example: Split the data by comma to extract specific information
-  const dataParts = data.split(',');
+  // Add additional logging statements to track the flow
+  console.log('Processing UDP packet...');
 
-  // Example: Extract latitude and longitude from the data
-  const latitude = dataParts[3];
-  const longitude = dataParts[4];
+  // Rest of your processing logic
 
-  // Example: Perform further actions with the extracted data
-  console.log(`Latitude: ${latitude}`);
-  console.log(`Longitude: ${longitude}`);
+  console.log('UDP packet processed successfully.');
 
-  // Example: Store the data in a database or trigger other operations
-  // ...
+  // Rest of your code
 });
 
 
